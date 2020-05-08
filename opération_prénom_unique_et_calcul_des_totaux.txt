@@ -1,0 +1,59 @@
+[
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "preusuel",
+    "expression": "grel:value",
+    "onError": "set-to-blank",
+    "newColumnName": "uniquename",
+    "columnInsertIndex": 1,
+    "description": "Create column uniquename at index 1 based on column preusuel using expression grel:value"
+  },
+  {
+    "op": "core/column-move",
+    "columnName": "uniquename",
+    "index": 0,
+    "description": "Move column uniquename to position 0"
+  },
+  {
+    "op": "core/blank-down",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "uniquename",
+    "description": "Blank down cells in column uniquename"
+  },
+  {
+    "op": "core/column-addition",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "baseColumnName": "nombre",
+    "expression": "grel:row.record.cells.nombre.value.sum()",
+    "onError": "set-to-blank",
+    "newColumnName": "total",
+    "columnInsertIndex": 4,
+    "description": "Create column total at index 4 based on column nombre using expression grel:row.record.cells.nombre.value.sum()"
+  },
+  {
+    "op": "core/row-reorder",
+    "mode": "row-based",
+    "sorting": {
+      "criteria": [
+        {
+          "valueType": "number",
+          "column": "total",
+          "blankPosition": 2,
+          "errorPosition": 1,
+          "reverse": true
+        }
+      ]
+    },
+    "description": "Reorder rows"
+  }
+]
